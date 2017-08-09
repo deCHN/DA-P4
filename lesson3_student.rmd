@@ -23,8 +23,11 @@ names(pf)
 Notes:
 
 ```{r Histogram of Users\' Birthdays}
-install.packages('ggplot2')
+#install.packages('ggplot2')
 library(ggplot2)
+ggplot(aes(x = dob_day), data = pf) + 
+  geom_histogram(binwidth = 1) + 
+  scale_x_continuous(breaks = 1:31)
 ```
 
 ***
@@ -63,7 +66,10 @@ Notes:
 Notes:
 
 ```{r Faceting}
-
+ggplot(data = pf, aes(x = dob_day)) + 
+  geom_histogram(binwidth = 1) + 
+  scale_x_continuous(breaks = 1:31) + 
+  facet_wrap(~dob_month, ncol=6)
 ```
 
 #### Let’s take another look at our plot. What stands out to you here?
@@ -89,7 +95,7 @@ Notes:
 #### What code would you enter to create a histogram of friend counts?
 
 ```{r Friend Count}
-
+qplot(x = friend_count, data = pf, bins=50)
 ```
 
 #### How is this plot similar to Moira's first plot?
@@ -101,7 +107,8 @@ Response:
 Notes:
 
 ```{r Limiting the Axes}
-
+qplot(x = friend_count, data = pf, binwidth=25) +
+  scale_x_continuous(limits=c(0,1000), breaks=seq(0,1000,50))
 ```
 
 ### Exploring with Bin Width
@@ -117,8 +124,9 @@ Notes:
 # What code would you add to create a facet the histogram by gender?
 # Add it to the code below.
 qplot(x = friend_count, data = pf, binwidth = 10) +
-  scale_x_continuous(limits = c(0, 1000),
-                     breaks = seq(0, 1000, 50))
+  scale_x_continuous(limits = c(0, 1000),breaks = seq(0, 1000, 50)) +
+  facet_grid(. ~ gender)
+
 ```
 
 ***
@@ -127,6 +135,10 @@ qplot(x = friend_count, data = pf, binwidth = 10) +
 Notes:
 
 ```{r Omitting NA Values}
+qplot(x = friend_count, data = subset(pf, !is.na(gender)), binwidth = 10) +
+  scale_x_continuous(limits = c(0, 1000),
+                     breaks = seq(0, 1000, 50)) +
+  facet_grid(. ~ gender)
 
 ```
 
@@ -136,33 +148,39 @@ Notes:
 Notes:
 
 ```{r Statistics \'by\' Gender}
-
+by(pf$friend_count, pf$gender, summary)
 ```
 
 #### Who on average has more friends: men or women?
 Response:
+Women
 
 #### What's the difference between the median friend count for women and men?
 Response:
+22
 
 #### Why would the median be a better measure than the mean?
 Response:
-
+less impact on outliers
 ***
 
 ### Tenure
 Notes:
 
 ```{r Tenure}
-
+ggplot(aes(x = tenure), data = pf) + 
+   geom_histogram(binwidth = 30, color = 'white', fill = '#099DD9')
 ```
+
 
 ***
 
 #### How would you create a histogram of tenure by year?
 
 ```{r Tenure Histogram by Year}
-
+ggplot(aes(x = tenure/365), data = pf) + 
+   geom_histogram(binwidth = .25, color = 'black', fill = '#F79420') +
+   scale_x_continuous(breaks = seq(1,7,1), limits = c(0,7))
 ```
 
 ***
@@ -171,7 +189,10 @@ Notes:
 Notes:
 
 ```{r Labeling Plots}
-
+qplot(x = tenure/365, data = pf, xlab = 'year', ylab = 'members', binwidth = .25,
+      color = I('white'), fill = I('#f79000')) +
+  scale_x_continuous(breaks = seq(1,7,1), limits = c(0,7))
+  
 ```
 
 ***
@@ -180,12 +201,17 @@ Notes:
 Notes:
 
 ```{r User Ages}
-
+qplot(x=age, data=pf,
+      binwidth=1,
+      color=I('white'),
+      fill=I('#878787'),
+      xlab='age') +
+  scale_x_continuous(breaks = seq(10,100,5), limits = c(10,100))
 ```
 
 #### What do you notice?
 Response:
-
+most member are under 30
 ***
 
 ### The Spread of Memes
@@ -207,7 +233,17 @@ Notes:
 Notes:
 
 ```{r Add a Scaling Layer}
+library(gridExtra)
 
+summary(pf$friend_count)
+
+p1 = qplot(x = friend_count, data = pf,
+           color = I('white'),
+           fill = I('#787878'))
+
+plog = p1 + scale_x_log10()
+psqrt = p1 + scale_x_sqrt()
+grid.arrange(p1, plog, psqrt, ncol=1)
 ```
 
 ***
