@@ -128,4 +128,7 @@ qplot(x = price, data = diamonds) + facet_wrap(~cut)
 # be different for each histogram.
 
 # If you want a hint, check out the Instructor Notes.
-
+ggplot(aes(x = price), data = diamonds) +
+  geom_histogram(binwidth = 100, color = I('white'), fill = I('#f79420')) +
+  scale_x_continuous(limits = c(0, 19000), breaks = seq(0, 19000, 1000)) +
+  facet_grid(cut ~ ., scales = "free_y")
