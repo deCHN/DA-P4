@@ -177,3 +177,28 @@ ggplot(aes(y = price, x = clarity), data = diamonds) +
   scale_y_continuous(breaks = seq(0, 18000, 500))
 
 by(diamonds$price, diamonds$color, IQR)
+
+
+# Investigate the price per carat of diamonds across
+# the different colors of diamonds using boxplots.
+# Go to the discussions to
+# share your thoughts and to discover
+# what other people found.
+
+# You can save images by using the ggsave() command.
+# ggsave() will save the last plot created.
+# For example...
+#                  qplot(x = price, data = diamonds)
+#                  ggsave('priceHistogram.png')
+
+# ggsave currently recognises the extensions eps/ps, tex (pictex),
+# pdf, jpeg, tiff, png, bmp, svg and wmf (windows only).
+
+# Copy and paste all of the code that you used for
+# your investigation, and submit it when you are ready.
+
+# SUBMIT YOUR CODE BELOW THIS LINE
+# ===================================================================
+ggplot(aes(y = price/carat, x = color), data = diamonds) +
+  geom_boxplot() +
+  scale_y_log10(breaks = seq(1000, 15000, 500))
