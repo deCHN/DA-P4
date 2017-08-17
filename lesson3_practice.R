@@ -146,5 +146,32 @@ ggplot(aes(x = price/carat), data = diamonds) +
   geom_histogram(bins = 150, color = I('white'), fill = I('orange')) +
   scale_x_log10(breaks = seq(1000, 15000, 1000)) +
   facet_grid(cut ~ ., scales = "free_y")
-  
 
+  
+# Investigate the price of diamonds using box plots,
+# numerical summaries, and one of the following categorical
+# variables: cut, clarity, or color.
+
+# There won’t be a solution video for this
+# exercise so go to the discussion thread for either
+# BOXPLOTS BY CLARITY, BOXPLOT BY COLOR, or BOXPLOTS BY CUT
+# to share you thoughts and to
+# see what other people found.
+
+# You can save images by using the ggsave() command.
+# ggsave() will save the last plot created.
+# For example...
+#                  qplot(x = price, data = diamonds)
+#                  ggsave('priceHistogram.png')
+
+# ggsave currently recognises the extensions eps/ps, tex (pictex),
+# pdf, jpeg, tiff, png, bmp, svg and wmf (windows only).
+
+# Copy and paste all of the code that you used for
+# your investigation, and submit it when you are ready.
+# =================================================================
+# 在箱线图中，我们将 y 参数作为连续数据，将 x 参数作为分类数据。
+by(diamonds$price, diamonds$clarity, summary)
+ggplot(aes(y = price, x = clarity), data = diamonds) +
+  geom_boxplot() + 
+  scale_y_continuous(breaks = seq(0, 18000, 500))
