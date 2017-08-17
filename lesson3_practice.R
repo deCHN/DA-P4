@@ -175,3 +175,5 @@ by(diamonds$price, diamonds$clarity, summary)
 ggplot(aes(y = price, x = clarity), data = diamonds) +
   geom_boxplot() + 
   scale_y_continuous(breaks = seq(0, 18000, 500))
+
+by(diamonds$price, diamonds$color, IQR)
