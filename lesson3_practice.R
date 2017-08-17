@@ -202,3 +202,13 @@ by(diamonds$price, diamonds$color, IQR)
 ggplot(aes(y = price/carat, x = color), data = diamonds) +
   geom_boxplot() +
   scale_y_log10(breaks = seq(1000, 15000, 500))
+
+ggplot(aes(x = carat), data = diamonds) +
+  geom_histogram(binwidth = 0.05, color = 'white', fill = 'orange') + 
+  scale_x_continuous(limits = c(0, 3), breaks = seq(0, 3, 0.1)) +
+  scale_y_continuous(breaks = seq(0, 15000, 1000))
+
+ggplot(aes(x = carat), data = diamonds) +
+  geom_freqpoly(binwidth = 0.1, color = 'orange') +
+  scale_x_continuous(limits = c(0, 3), breaks = seq(0, 3, 0.1)) +
+  scale_y_continuous(breaks = seq(0, 15000, 1000))
