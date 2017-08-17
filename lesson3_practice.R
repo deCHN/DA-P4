@@ -132,3 +132,19 @@ ggplot(aes(x = price), data = diamonds) +
   geom_histogram(binwidth = 100, color = I('white'), fill = I('#f79420')) +
   scale_x_continuous(limits = c(0, 19000), breaks = seq(0, 19000, 1000)) +
   facet_grid(cut ~ ., scales = "free_y")
+
+
+# Create a histogram of price per carat
+# and facet it by cut. You can make adjustments
+# to the code from the previous exercise to get
+# started.
+# Adjust the bin width and transform the scale
+# of the x-axis using log10.
+by(diamonds$price/diamonds$carat, diamonds$cut, max)
+
+ggplot(aes(x = price/carat), data = diamonds) +
+  geom_histogram(bins = 150, color = I('white'), fill = I('orange')) +
+  scale_x_log10(breaks = seq(1000, 15000, 1000)) +
+  facet_grid(cut ~ ., scales = "free_y")
+  
+
