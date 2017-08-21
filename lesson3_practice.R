@@ -246,11 +246,7 @@ ggplot(aes(x = carat), data = diamonds) +
 library(readxl)
 pg <- read_excel('./population-growth.xlsx')
 dim(pg)
-
 tpg <- t(pg)
-
-ggplot(data = pg) +
-  geom_line()
 
 
 # Your task is to investigate the distribution of your friends'
@@ -312,3 +308,21 @@ ggplot(data = pg) +
 # your investigation below the line. Submit it when you are ready.
 # ===============================================================================
 ?read.csv
+birthday <- read.csv('./birthdaysExample.csv')
+
+?as.Date
+library(ggplot2)
+library(scales)
+birthday$betterDates <- as.Date(birthday$dates, '%m/%d/%Y')
+bin = 30
+min(birthday$betterDates)
+# https://stackoverflow.com/questions/12395548/histgramming-dates-with-unequal-bins-in-ggplot
+ggplot(aes(x = betterDates), data = birthday) +
+  stat_bin(breaks = as.numeric(seq(min(birthday$betterDates), max(birthday$betterDates), '1 month')),
+           position = 'identity') +
+  geom_histogram(color='white', fill='orange') +
+  scale_x_date(date_breaks = '1 month', labels = date_format('%B')) +
+  xlab(NULL)
+  
+?scale_x_date
+?stat_bin
