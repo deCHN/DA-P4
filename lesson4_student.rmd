@@ -7,12 +7,17 @@ Lesson 4
 Notes:
 
 ***
+```{r}
+pf = read.delim('pseudo_facebook.tsv')
+```
+
 
 ### Scatterplots
 Notes:
 
 ```{r Scatterplots}
-
+library(ggplot2)
+summary(pf$age)
 ```
 
 ***
@@ -26,7 +31,9 @@ Response:
 Notes:
 
 ```{r ggplot Syntax}
-
+ggplot(pf, aes(age, friend_count)) +
+  geom_point() +
+  xlim(13, 90)
 ```
 
 ***
@@ -35,7 +42,9 @@ Notes:
 Notes:
 
 ```{r Overplotting}
-
+ggplot(pf, aes(age, friend_count)) +
+  geom_point(alpha = .05) +
+  xlim(13, 90)
 ```
 
 #### What do you notice in the plot?
@@ -47,13 +56,19 @@ Response:
 Notes:
 
 ```{r Coord_trans()}
-
+ggplot(pf, aes(age, friend_count)) +
+  geom_point(alpha = .05) +
+  xlim(13, 90) +
+  coord_trans(y = "sqrt")
 ```
 
 #### Look up the documentation for coord_trans() and add a layer to the plot that transforms friend_count using the square root function. Create your plot!
 
 ```{r}
-
+ggplot(pf, aes(age, friend_count)) +
+  geom_point(alpha = .05) +
+  xlim(13, 90) +
+  coord_trans(y = "sqrt")
 ```
 
 #### What do you notice?
@@ -64,7 +79,9 @@ Notes:
 Notes:
 
 ```{r Alpha and Jitter}
-
+ggplot(pf, aes(age, friendships_initiated)) +
+  geom_point(alpha = .05, position = position_jitter(height = 0)) +
+  coord_trans(y = "sqrt")
 ```
 
 ***
