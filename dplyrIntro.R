@@ -154,3 +154,4 @@ daily <- group_by(hflights_df, Year, Month, DayofMonth)
 # However you need to be careful when progressively rolling up summaries like this: 
 # it's ok for sums and counts, but you need to think about weighting for means and variances, 
 # and it's not possible to do exactly for medians.
+
