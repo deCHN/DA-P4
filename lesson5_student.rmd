@@ -300,9 +300,7 @@ ggplot(aes(x = 90 * round(tenure / 90), y = friendships_initiated / tenure),
 
 ggplot(aes(x = tenure, y = friendships_initiated / tenure),
        data = subset(pf, tenure > 0)) +
-  geom_smooth(aes(color = year_joined.bucket),
-            stat = "summary",
-            fun.y = mean)
+  geom_smooth(aes(color = year_joined.bucket))
 ```
 
 ***
@@ -321,25 +319,56 @@ Notes:
 Notes:
 
 ```{r Histograms Revisited}
+yo <- read.csv('yogurt.csv')
+summary(yo)
 
+str(yo)
+yo$id <- factor(yo$id)
+str(yo)
+length(unique(yo$price))
+
+summary(yo$price)
+ggplot(yo, aes(price)) +
+  geom_histogram(binwidth = 1)
 ```
+
 
 ***
 
 ### Number of Purchases
 Notes:
+# Create a new variable called all.purchases,
+# which gives the total counts of yogurt for
+# each observation or household.
+
+# One way to do this is using the transform
+# function. You can look up the function transform
+# and run the examples of code at the bottom of the
+# documentation to figure out what it does.
+
+# The transform function produces a data frame
+# so if you use it then save the result to 'yo'!
+
+# OR you can figure out another way to create the
+# variable.
 
 ```{r Number of Purchases}
-
+yo <- transform(yo, all.purchases = yo$strawberry + yo$blueberry + yo$pina.colada + yo$plain + yo$mixed.berry)
 ```
 
 ***
 
 ### Prices over Time
 Notes:
+# Create a scatterplot of price vs time.
 
+# This will be an example of a time series plot.
+
+# Resolve overplotting issues by using
+# techniques you learned in Lesson 4.
 ```{r Prices over Time}
-
+ggplot(yo, aes(yo$time, yo$price)) +
+  geom_point(alpha=.3, fill=I('#ff0000'))
 ```
 
 ***
@@ -352,7 +381,13 @@ Notes:
 ### Looking at Samples of Households
 
 ```{r Looking at Sample of Households}
-
+set.seed(40000)
+sample.ids <- sample(levels(yo$id), 16)
+ggplot(subset(yo, id %in% sample.ids),
+       aes(time, price)) +
+  geom_line() +
+  facet_wrap(~id) +
+  geom_point(aes(size = all.purchases), pch = 1)
 ```
 
 ***
