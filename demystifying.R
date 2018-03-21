@@ -55,7 +55,7 @@ numbers
 udacious <- c("Chris Saden", "Lauren Castellano",
               "Sarah Spikes","Dean Eckles",
               "Andy Brown", "Moira Burke",
-              "Kunal Chawla", YOUR_NAME)
+              "Kunal Chawla", "YOUR_NAME")
 
 # Notice how R updates 'udacious' in the workspace.
 # It should now say something like 'chr[1:8]'.
@@ -245,8 +245,8 @@ tail(mtcars, 3)
 mtcars$mpg
 
 # Print out any two other variables to the console.
-
-
+mtcars$hp
+mtcars$cyl
 
 # This is a vector containing the mpg (miles per gallon) of
 # the 32 cars. Run this next line of code to get the average mpg for
@@ -256,6 +256,6 @@ mtcars$mpg
 # https://www.udacity.com/course/viewer#!/c-ud651/l-729069797/e-804129314/m-830829287
 
 mean(mtcars$mpg)
-
+#20.09062
 
 
